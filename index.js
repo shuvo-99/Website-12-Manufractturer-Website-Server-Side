@@ -19,7 +19,24 @@ const client = new MongoClient(uri, {
 async function run() {
   try {
     await client.connect();
-    const toolCollection = client.db("tool-manufracturer").collection("tools");
+    const tCollection = client.db("tool-manufracturer").collection("tools");
+    const rCollection = client.db("tool-manufracturer").collection("reviews");
+
+    // Items
+    app.get("/tool", async (req, res) => {
+      const query = {};
+      const cursor = tCollection.find(query);
+      const tools = await cursor.toArray();
+      res.send(tools);
+    });
+
+    // Reviews
+    app.get("/review", async (req, res) => {
+      const query1 = {};
+      const cursor = rCollection.find(query1);
+      const reviews = await cursor.toArray();
+      res.send(reviews);
+    });
   } finally {
   }
 }
