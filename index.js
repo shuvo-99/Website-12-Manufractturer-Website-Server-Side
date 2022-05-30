@@ -37,6 +37,14 @@ async function run() {
       const reviews = await cursor.toArray();
       res.send(reviews);
     });
+
+    // Get specific user
+    app.get("/tool/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: ObjectId(id) };
+      const tool = await tCollection.findOne(query);
+      res.send(tool);
+    });
   } finally {
   }
 }
