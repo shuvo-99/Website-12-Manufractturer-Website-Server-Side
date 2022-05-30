@@ -21,6 +21,7 @@ async function run() {
     await client.connect();
     const tCollection = client.db("tool-manufracturer").collection("tools");
     const rCollection = client.db("tool-manufracturer").collection("reviews");
+    const oCollection = client.db("tool-manufracturer").collection("orders");
 
     // Items
     app.get("/tool", async (req, res) => {
@@ -44,6 +45,13 @@ async function run() {
       const query = { _id: ObjectId(id) };
       const tool = await tCollection.findOne(query);
       res.send(tool);
+    });
+
+    // POST;
+    app.post("/order", async (req, res) => {
+      const newOrder = req.body;
+      const result = await oCollection.insertOne(newOrder);
+      res.send(result);
     });
   } finally {
   }
