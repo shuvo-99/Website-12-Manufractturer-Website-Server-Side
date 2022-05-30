@@ -47,17 +47,26 @@ async function run() {
       res.send(tool);
     });
 
-    // POST;
+    // POST
     app.post("/order", async (req, res) => {
       const newOrder = req.body;
       const result = await oCollection.insertOne(newOrder);
       res.send(result);
     });
 
+    // POST
     app.post("/review", async (req, res) => {
       const newRview = req.body;
       const result = await rCollection.insertOne(newRview);
       res.send(result);
+    });
+
+    // GET
+    app.get("/order", async (req, res) => {
+      const query1 = {};
+      const cursor = oCollection.find(query1);
+      const orders = await cursor.toArray();
+      res.send(orders);
     });
   } finally {
   }
