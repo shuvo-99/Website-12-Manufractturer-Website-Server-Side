@@ -53,6 +53,12 @@ async function run() {
       const result = await oCollection.insertOne(newOrder);
       res.send(result);
     });
+
+    app.post("/review", async (req, res) => {
+      const newRview = req.body;
+      const result = await rCollection.insertOne(newRview);
+      res.send(result);
+    });
   } finally {
   }
 }
